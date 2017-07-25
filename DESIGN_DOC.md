@@ -53,8 +53,9 @@ Automate squarespace data entry??
 
 
 ## Questions for Nicole
-servers? if not use heroku or someone's machine. only needs to run like once a day  
-meetup, eventbrite, fb api key
+servers? if not use heroku or someone's machine. only needs to run like once a day
+github private repos 
+meetup, eventbrite, google sheets, fb api key
 
 
 ## Scraping Resources
