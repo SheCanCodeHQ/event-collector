@@ -1,0 +1,58 @@
+	•	Global Event Scraper/Crawler
+
+Level:
+User Type/Persona (who will be using the tool):  Community (i.e. women in tech to find relevant events).
+Problem: There is no site that scrapes recommended events for our target market to attend; and displays them according to the needs/preferences of the user.
+
+Objective: To build an event scraper that scrapes events by looking for new data (i.e. crawling input sites manually or automatically), fetching the new or updated data (downloading data) and storing it for easy access in a way that is easy to visualise and upload to our existing site (i.e. appropriately tagged and synced columns).
+
+Time Allocation:
+ Functionality:
+	•	Develop an event scraper that will crawl a list of suggested/recommended websites that already list events in-line with those we want our target market to get exposure to. Examples include:
+	•	Girls in Technology
+	•	Women Who Code
+	•	Meetup
+	•	Eventbrite
+	•	blog.bizzabo.com/women-in-technology-conferences
+	•	wearethecity.com
+	•	General Assembly
+
+The crawler will extract the following data and store it to be accessed later:
+	•	Event Name
+	•	Short Description / Extract (if any)
+	•	Event Author / Organiser / Host
+	•	Event Start and End Time (date and time)
+	•	Event Type: Conference,
+	•	Location (City, Country)
+	•	Google Maps Link
+	•	Price / Cost of Event (if listed)
+	•	Original / Booking Site URL
+	•	Logo Image (if any)
+	•	Tags (if tagged with anything that would make it more descriptive)
+
+	 
+	•	All data should be organised and put into a drive / accessible folder / downloadable drive that we can use when adding new events to our current site (squarespace, manual upload).
+	•	We will moderate the events when going through the list, before posting.
+	•	Test the crawler to make sure relevant events are being parsed. Play with input websites etc. to increase quantity of quality events.
+	•	Try to get an email address from users using the tool.
+
+Simpler Solution: Build a scraper whereby you put in the event URL and it pulls the relevant information into the spreadsheet. This will require us to manually find all events and paste all links into the software to extract the information in a way that is easily transferable to a manual upload in Squarespace. If you think of a simpler solution, to suggest it.
+
+Admin Notes: If this is already a solution, then feel free to implement it. This needs to be a very simple solution.
+
+Technologies:
+
+Tech Notes:
+
+Examples:
+All The Challenges
+Where Is My Mat
+
+Extra Time:
+	•	Build a single webpage that displays all crawled results in a format that is easily searchable by the user (see examples). The user should be able to filter events based on the following criteria:
+	•	Location (City, Country)
+	•	Event Type
+	•	Event Date
+	•	Price (Cost)
+	•	Create a simple button that allows users to upload and publish their own events / events that we’re missing that should be added to our calendar.  These events must enter a moderation queue for admin to review.
+	•	Integrate with ‘forum’ login i.e. add it as a feature to the users’ forum login, allowing logged in users to ‘save events’ to their profile. This should operate like an event diarising system that the user can use to ‘save event to calendar’ as an export (i.e. export the event to their existing calendar); or ‘save event to my calendar’ (i.e. save events to the users’ personal event calendar on their profile under ‘my saved events’). Note, we are not integrating a booking system here; however one should bear in mind that this may happen in the future.
