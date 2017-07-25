@@ -52,9 +52,9 @@ Build website for organizing better, or just publish google doc
 Automate squarespace data entry??  
 
 
-## Questions for Nicole
+## Questions 
 servers? if not use heroku or someone's machine. only needs to run like once a day
-github private repos 
+github private repos
 meetup, eventbrite, google sheets, fb api key
 
 
