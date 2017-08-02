@@ -21,29 +21,26 @@ for i in women_keywords:
             verify = True,  # Verify SSL certificate
         )
 
-        #ids = ids.union(set([event['id'] for event in response.json()['events']]))
-        #print(keyword, len(ids))
-
         # make sure status is live
 
-        for event in [event for event in response.json()['events'] if event['id'] not in ids]:
+        for event in [event for event in response.json()['events'] if event['id'] not in ids and event['venue']]:
             ids.add(event['id'])
 
             name = event['name']['text']
-            description = ''#event['description']['text'] if event['description'] else ''
+            description = ''#TODO: clean this event['description']['text'] if event['description'] else ''
             host = event['organizer']['name']
             start_time = event['start']['local']
             end_time = event['end']['local']
             event_type = event['format']['name'] if event['format'] else ''
-            location = event['venue']['address']['localized_address_display'] if event['venue'] else ''
-            city = event['venue']['address']['city'] if event['venue'] else ''
-            country = event['venue']['address']['country'] if event['venue'] else ''
-            price = event['is_free']
+            location = event['venue']['address']['localized_address_display']
+            city = event['venue']['address']['city']
+            country = event['venue']['address']['country']
+            price = 'free' if event['is_free'] else 'paid' #TODO: get a general idea of ticket prices
             link = event['url']
             tags = event['category']['name'] if event['category'] else ''
 
             line = [name, description, host, start_time, end_time, event_type, location, city, country, price, link, tags]
-            line = [str(item) for item in line]
+            line = [str(item).replace(',', ' ') for item in line]
             line = ", ".join(line)
             lines.append(line)
 
