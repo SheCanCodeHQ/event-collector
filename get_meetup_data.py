@@ -15,12 +15,16 @@ def main():
     api_key = config.MEETUP
     lines = []
     for category in categories:
-            response= get_results({"category":category,"time":",1m",
+        for coords in [(37.77397, -122.43129), (51.508530, -0.076132), (40.785091, -73.968285)]:
+            lat = coords[0]
+            lon = coords[1]
+            response= get_results({'lat':lat, 'lon':lon, "category":category,"time":",1m",
                 "status":"upcoming","key":api_key,"text_format":'plain'}) #only looking at upcoming events
             time.sleep(1)
             for event in response['results']:
                 venue = event.get('venue')
                 place = ""
+                city = ""
                 state = ""
                 country = ""
                 address = ""
@@ -34,7 +38,6 @@ def main():
                 hostname = ""
                 if host:
                     hostname = host.get('name',"")
-
                 name = event['name']
                 description = event.get('description', '')
                 host = hostname
@@ -45,7 +48,6 @@ def main():
                         datetime.timedelta(milliseconds=event['utc_offset']+event['duration'])).strftime("%Y-%m-%dT00:00:00")
                 else:
                     end_time = ''
-                end_time = ''
                 event_type = ''
                 location = address
                 price = event.get("fee").get("amount", '') if event.get("fee") else ''
@@ -59,8 +61,7 @@ def main():
                     event_type, location, city, country, price, link, tags, source, event_id, keyword]
                 line = [str(item).replace(',', '').replace('\n', ' ').replace('\r', '') for item in details]
                 line = ",".join(line)
-                if city in ["San Francisco", "London", "New York"]:
-                    lines.append(line)
+                lines.append(line)
 
     with open("meetup_events.csv", 'w') as f:
         f.write('\n'.join(lines))
