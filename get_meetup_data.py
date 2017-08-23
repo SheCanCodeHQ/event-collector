@@ -15,7 +15,8 @@ def main():
     api_key = config.MEETUP
     lines = []
     for category in categories:
-            response= get_results({"category":category,"time":",1m","status":"upcoming","key":api_key}) #only looking at upcoming events
+            response= get_results({"category":category,"time":",1m",
+                "status":"upcoming","key":api_key,"text_format":'plain'}) #only looking at upcoming events
             time.sleep(1)
             for event in response['results']:
                 venue = event.get('venue')
@@ -35,24 +36,16 @@ def main():
                     hostname = host.get('name',"")
 
                 name = event['name']
-                description = ''
+                description = event.get('description', '')
                 host = hostname
-                try:
-                    print(event['time'])
-                    print(datetime.datetime.fromtimestamp(event['time']))
-                    start_time = (datetime.datetime.fromtimestamp(event['time']) +
-                        datetime.timedelta(milliseconds=event['utc_offset'])).strftime("%Y-%m-%dT00:00:00")
-                    print(start_time)
-                    if event[duration]:
-                        end_time = (datetime.datetime.fromtimestamp(event['time']) +
-                            datetime.timedelta(milliseconds=event['utc_offset']+event['duration'])).strftime("%Y-%m-%dT00:00:00")
-                    else:
-                        end_time = ''
-                    print(end_time)
-                except ValueError:
-                    print("year is very wrong")
-                    start_time = ''
+                start_time = (datetime.datetime.fromtimestamp(event['time']/1000.0) +
+                    datetime.timedelta(milliseconds=event['utc_offset'])).strftime("%Y-%m-%dT%H:%M:%S")
+                if event.get('duration', ''):
+                    end_time = (datetime.datetime.fromtimestamp(event['time']/1000.0) +
+                        datetime.timedelta(milliseconds=event['utc_offset']+event['duration'])).strftime("%Y-%m-%dT00:00:00")
+                else:
                     end_time = ''
+                end_time = ''
                 event_type = ''
                 location = address
                 price = event.get("fee").get("amount", '') if event.get("fee") else ''
@@ -64,7 +57,7 @@ def main():
 
                 details = [name, description, host, start_time, end_time,
                     event_type, location, city, country, price, link, tags, source, event_id, keyword]
-                line = [str(item).replace(',', ' ').replace('\n', ' ') for item in details]
+                line = [str(item).replace(',', '').replace('\n', ' ').replace('\r', '') for item in details]
                 line = ",".join(line)
                 if city in ["San Francisco", "London", "New York"]:
                     lines.append(line)
