@@ -1,11 +1,12 @@
-from __future__ import unicode_literals
+#Python version: 2.7.13
+import config
 
 import requests
 import json
 import time
+
 import codecs
 import sys
-import config
 UTF8Writer = codecs.getwriter('utf8')
 sys.stdout = UTF8Writer(sys.stdout)
 
@@ -13,7 +14,7 @@ def main():
         categories = ["34"] #34 is the category id for tech; more can be added as deemed fit
         api_key= config.api_key
         for category in categories:
-                response=get_results({"category":category,"status":"upcoming","key":api_key}) #only looking at upcoming events
+                response=get_results({"category":category,"status":"upcoming","text":"women,girls","city":"San Francisco","key":api_key}) #only looking at upcoming events
                 time.sleep(1)
                 for event in response['results']:
                 	venue = event.get('venue')
