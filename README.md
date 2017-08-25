@@ -48,4 +48,4 @@ Click [here](https://github.com/SheCanCodeHQ/event-collector/graphs/contributors
 
 ## Acknowledgments
 
-*Thanks to Andrew Ba Tran for his in-depth [tutorial](https://trendct.org/2015/04/03/using-python-and-r-to-pull-and-analyze-meetup-com-api-data) on accessing and using Meetup's API.
+* Thanks to Andrew Ba Tran for his in-depth [tutorial](https://trendct.org/2015/04/03/using-python-and-r-to-pull-and-analyze-meetup-com-api-data) on accessing and using Meetup's API.
