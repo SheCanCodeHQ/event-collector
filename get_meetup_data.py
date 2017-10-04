@@ -1,14 +1,9 @@
-#from __future__ import unicode_literals
-
+#Python version: 2.7.13
+import config
 import requests
 import json
 import time
-#import codecs
-#import sys
-import config
 import datetime
-#UTF8Writer = codecs.getwriter('utf8')
-#sys.stdout = UTF8Writer(sys.stdout)
 
 def main():
     categories = ["34"] #34 is the category id for tech; more can be added as deemed fit
@@ -56,7 +51,6 @@ def main():
                 source = "meetup"
                 event_id = event["id"]
                 keyword = category
-
                 details = [name, description, host, start_time, end_time,
                     event_type, location, city, country, price, link, tags, source, event_id, keyword]
                 line = [str(item).replace(',', '').replace('\n', ' ').replace('\r', '') for item in details]
