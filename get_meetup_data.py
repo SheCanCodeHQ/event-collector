@@ -4,17 +4,22 @@ import requests
 import json
 import time
 import datetime
+import timestring
 
-def main():
+def main(start, end):
+    start_timestamp=int(timestring.Date("{}T00:00:00".format(start)).to_unixtime()*1000)
+    end_timestamp=int(timestring.Date("{}T23:59:00".format(end)).to_unixtime()*1000)
     categories = ["34"] #34 is the category id for tech; more can be added as deemed fit
     api_key = config.MEETUP
-    lines = []
+    headers = ['name', 'description', 'host', 'start_time', 'end_time',
+        'event_type', 'location', 'city', 'country', 'price', 'link', 'tags', 'source', 'event_id', 'keyword']
+    lines = [','.join(headers)]
     for category in categories:
         for coords in [(37.77397, -122.43129), (51.508530, -0.076132), (40.785091, -73.968285)]:
             lat = coords[0]
             lon = coords[1]
-            response= get_results({'lat':lat, 'lon':lon, "category":category,"time":",1m",
-                "status":"upcoming","key":api_key,"text_format":'plain'}) #only looking at upcoming events
+            response= get_results({'lat':lat, 'lon':lon, 'radius':'smart', "category":category,"time": '{},{}'.format(start_timestamp, end_timestamp),
+                "key":api_key,"text_format":'plain'}) #only looking at upcoming events
             time.sleep(1)
             for event in response['results']:
                 venue = event.get('venue')
@@ -67,4 +72,6 @@ def get_results(params):
 
 
 if __name__=="__main__":
-        main()
+    start = datetime.date.today().strftime("%Y-%m-%d")
+    end = (datetime.date.today() + datetime.timedelta(30)).strftime("%Y-%m-%d")
+    main(start, end)

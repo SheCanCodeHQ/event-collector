@@ -3,16 +3,27 @@ import eventbrite_collector
 import get_meetup_data
 import requests
 import gspread
-import datetime
 from oauth2client.service_account import ServiceAccountCredentials
 
-def main():
+def main(start, end):
     print("Fetching meetup data...")
-    get_meetup_data.main()
+    get_meetup_data.main(start, end)
     print("Fetching eventbrite data...")
-    eventbrite_collector.main()
+    eventbrite_collector.main(start, end)
     print("Writing to google sheets...")
     write_to_sheets()
+
+def html_table(csv_file):
+    rows = []
+    with open(csv_file) as f:
+        rows += f.read().split("\n")
+    rows = [row.split(",") for row in rows]
+    # use first line as headers
+    headers = rows[0]
+    table_rows = ['</td><td>'.join(lines) for lines in rows[1:]]
+    table = '</td></tr><tr><td>'.join(table_rows)
+    header_row='<tr><th>{}</th></tr>'.format('</th><th>'.join(headers))
+    return '<table>{}<tr><td>{}</td></tr></table>'.format(header_row,table)
 
 def write_to_sheets():
     SCOPES = ["https://spreadsheets.google.com/feeds"]
@@ -40,5 +51,8 @@ def write_to_sheets():
                 except TypeError as e:
                     print(e)
                     continue
+
 if __name__=="__main__":
-        main()
+    start = datetime.date.today().strftime("%Y-%m-%d")
+    end = (datetime.date.today() + datetime.timedelta(30)).strftime("%Y-%m-%d")
+    main(start, end)

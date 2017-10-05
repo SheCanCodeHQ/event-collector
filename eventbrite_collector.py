@@ -5,17 +5,18 @@ import gspread
 import datetime
 from oauth2client.service_account import ServiceAccountCredentials
 
-min_date = datetime.date.today().strftime("%Y-%m-%dT00:00:00")
-max_date = (datetime.date.today() + datetime.timedelta(30)).strftime("%Y-%m-%dT00:00:00")
+def main(start, end):
+    min_date = ("{}T00:00:00".format(start))
+    max_date = ("{}T00:00:00".format(end))
 
-def main():
     diversity_keywords = ["women", "woman", "girl", "lady", "ladies", "diversity", "lgbt", "lgbtq"]
     tech_keywords = ["tech", "technology"]
     keywords = lst = [i + "+" + j for i in diversity_keywords for j in tech_keywords]
 
     ids = set()
-    lines = []
-
+    headers = ['name', 'description', 'host', 'start_time', 'end_time',
+        'event_type', 'location', 'city', 'country', 'price', 'link', 'tags', 'source', 'event_id', 'keyword']
+    lines = [','.join(headers)]
     for keyword in keywords:
         for city in ["san+francisco", "london", "new+york"]:
             response = requests.get(
@@ -59,3 +60,8 @@ def main():
 
     with open("eventbrite_events.csv", 'w') as f:
         f.write('\n'.join(lines))
+
+if __name__=="__main__":
+    start = datetime.date.today().strftime("%Y-%m-%d")
+    end = (datetime.date.today() + datetime.timedelta(30)).strftime("%Y-%m-%d")
+    main(start, end)
