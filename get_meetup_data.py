@@ -62,14 +62,13 @@ def main(start, end):
                 line = ",".join(line)
                 lines.append(line)
 
-    with open("meetup_events.csv", 'w') as f:
+    with open("meetup_events_{}_to_{}.csv".format(start,end), 'w') as f:
         f.write('\n'.join(lines))
 
 def get_results(params):
     request = requests.get("https://api.meetup.com/2/open_events",params=params)
     data = request.json()
     return data
-
 
 if __name__=="__main__":
     start = datetime.date.today().strftime("%Y-%m-%d")

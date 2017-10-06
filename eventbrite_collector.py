@@ -58,7 +58,7 @@ def main(start, end):
                 line = ",".join(line)
                 lines.append(line)
 
-    with open("eventbrite_events.csv", 'w') as f:
+    with open("eventbrite_events_{}_to_{}.csv".format(start,end), 'w') as f:
         f.write('\n'.join(lines))
 
 if __name__=="__main__":
