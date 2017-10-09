@@ -82,7 +82,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
        return '<br>'.join(['<a href="{0}"> {0} </a>'.format(filename) for filename in files])
 
 if __name__ == '__main__':
-    server_address = ('127.0.0.1', 8081)
+    server_address = ('0.0.0.0', 8081)
     httpd = http.server.HTTPServer(server_address, RequestHandler)
     print('running server on {}:{}'.format(server_address[0],str(server_address[1])))
     httpd.serve_forever()
